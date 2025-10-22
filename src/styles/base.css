@@ -1,0 +1,27 @@
+:root {
+    --color-bg: #fafafa;
+    --font-small: 1.4rem;
+    --font-medium: 1.6rem;
+    --font-large: 1.8rem;
+    --font-xlarge: 2.2rem;
+    --font-xxlarge: 2.6rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 82.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--color-bg);
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+}

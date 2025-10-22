@@ -1,0 +1,1 @@
+export {default as ShortenPage} from './ShortenPage'
