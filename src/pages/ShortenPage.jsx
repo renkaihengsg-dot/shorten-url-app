@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { Container, styled, Box, Typography, Grid, Paper } from "@mui/material";
-import { ShortenForm, ShortenResult } from "../components";
-import ShortenService from "../services/shorten.service";
-import { loadingState } from "../contants/recoilState";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { Container, styled, Box, Typography, Grid, Paper } from "@mui/material";
+
+import { ShortenForm, ShortenResult } from "#/components";
+import ShortenService from "#/services/shorten.service";
+import { loadingState } from "#/contants/recoilState";
+import appConfig from "#/configs/app.config";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   color: theme.palette.primary.main,
@@ -34,7 +36,8 @@ const ShortenPage = () => {
 
       const result = await ShortenService.shortenLink(url);
       if (result) {
-        const { shortUrl } = result;
+        const { shortCode } = result;
+        const shortUrl = `${window.location.origin}/${shortCode}`;
         setOriginalUrl(url);
         setShortUrl(shortUrl);
       }
@@ -52,6 +55,8 @@ const ShortenPage = () => {
       console.error("failed to copy", err);
     }
   };
+
+  console.log("appconfig: ", appConfig.apiBaseUrl);
 
   return (
     <StyledContainer component={Paper} maxWidth="sm">

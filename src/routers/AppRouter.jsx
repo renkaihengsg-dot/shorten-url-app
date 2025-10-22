@@ -1,10 +1,14 @@
-import React from 'react'
-import {createBrowserRouter} from 'react-router'
-import {ShortenPage} from '../pages'
+import React from "react";
+import { createBrowserRouter } from "react-router";
+import { ShortenPage, RedirectPage } from "../pages";
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <ShortenPage />
-    }
-])
+  {
+    path: "/",
+    element: <ShortenPage />,
+  },
+  {
+    path: "/:shortCode",
+    element: <RedirectPage />,
+  },
+]);
