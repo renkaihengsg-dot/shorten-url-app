@@ -5,19 +5,12 @@ on:
     branches:
       - main
       - production
-      - dev
     tags:
       - "*"
   pull_request:
     branches:
       - main
       - production
-  workflow_dispatch:
-    inputs:
-      deploy:
-        description: "Trigger deploy?"
-        required: true
-        default: "false"
 
 jobs:
   build:
@@ -41,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Render
     needs: build
-    if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.deploy == 'true' }}
+    if: github.ref == 'refs/heads/production'
     steps:
       - name: Trigger deploy hook
         env:
