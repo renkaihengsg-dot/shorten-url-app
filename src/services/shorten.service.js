@@ -1,12 +1,27 @@
+import http from "#/helpers/http-common";
+
 class ShortenService {
-    async shortenLink (url) {
-        //return fake value after 3 seconds
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ shortUrl: 'https://short.ly/abcd1234' })
-            }, 3000)
-        })
+  async shortenLink(url) {
+    const response = await http.post(
+      `url/shorten`,
+      { originalUrl: url },
+      { timeout: 10000 },
+    );
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
     }
+
+    return response.data;
+  }
+
+  async getUrl(shortCode) {
+    const response = await http.get(`url/${shortCode}`, { timeout: 10000 });
+    if (response.data.error) {
+      throw new Error(response.data.error.message);
+    }
+
+    return response.data;
+  }
 }
 
-export default new ShortenService()
+export default new ShortenService();

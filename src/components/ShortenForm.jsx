@@ -26,20 +26,22 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ShortenForm = ({ onShortenUrl }) => {
+const ShortenForm = ({ onShortenUrl, originalUrl }) => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      url: "",
+      url: originalUrl || "",
     },
     resolver: yupResolver(shortenSchema),
   });
 
   const onSubmit = async (data) => {
     await onShortenUrl(data.url);
+    reset();
   };
 
   return (
