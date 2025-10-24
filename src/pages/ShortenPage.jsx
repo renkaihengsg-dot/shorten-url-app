@@ -11,14 +11,8 @@ const ShortenPage = () => {
   const [shortUrl, setShortUrl] = useState("");
   const setLoading = useSetRecoilState(loadingState);
 
-  const reset = () => {
-    setOriginalUrl("");
-    setShortUrl("");
-  };
-
   const handleShortenUrl = async (url) => {
     setLoading(true);
-    reset();
     try {
       if (typeof url !== "string") {
         throw new Error("Invalid URL.");
