@@ -1,4 +1,4 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Container, Link, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -12,8 +12,7 @@ const NotFoundPage = () => {
     }, 1000);
 
     if (countdown === 0) {
-      // navigate("/");
-      clearTimeout(timer);
+      navigate("/");
     }
 
     return () => clearTimeout(timer);
@@ -23,7 +22,14 @@ const NotFoundPage = () => {
     <Container>
       <Typography variant="h2">404 Not Found :(</Typography>
       <Typography variant="body">
-        Redirect to home in {countdown} seconds...
+        Redirect to home in {countdown} seconds or{" "}
+        <Link
+          href="/"
+          underline="hover"
+          sx={{ color: "secondary.main", fontWeight: 600 }}
+        >
+          click here
+        </Link>
       </Typography>
     </Container>
   );
