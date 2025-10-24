@@ -1,12 +1,13 @@
 import { Outlet } from "react-router";
-import { Container, Paper, styled } from "@mui/material";
+import { Container, Paper, styled, useMediaQuery, useTheme } from "@mui/material";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   color: theme.palette.primary.main,
   marginTop: theme.spacing(6),
-  padding: theme.spacing(2.5, 2.5),
+  padding: theme.spacing(0.5, 0.5),
   maxWidth: "90%",
   [theme.breakpoints.up("sm")]: {
+    padding: theme.spacing(2.5, 2.5),
     maxWidth: "60%",
   },
   [theme.breakpoints.up("md")]: {
@@ -24,8 +25,10 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 }));
 
 const MainLayout = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
   return (
-    <StyledContainer component={Paper}>
+    <StyledContainer component={isMobile ? "div" : Paper}>
       <Outlet />
     </StyledContainer>
   );

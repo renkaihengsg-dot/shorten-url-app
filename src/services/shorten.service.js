@@ -5,7 +5,7 @@ class ShortenService {
     const response = await http.post(
       `url/shorten`,
       { originalUrl: url },
-      { timeout: 10000 },
+      { timeout: 90000 },
     );
     if (response.data.error) {
       throw new Error(response.data.error.message);
@@ -15,7 +15,7 @@ class ShortenService {
   }
 
   async getUrl(shortCode) {
-    const response = await http.get(`url/${shortCode}`, { timeout: 10000 });
+    const response = await http.get(`url/${shortCode}`, { timeout: 90000 });
     if (response.data.error) {
       throw new Error(response.data.error.message);
     }
