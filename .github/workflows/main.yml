@@ -12,6 +12,11 @@ on:
       - main
       - production
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Trigger deploy?"
+        required: true
+        default: "false"
 
 jobs:
   build:
@@ -35,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Render
     needs: build
-    if: github.ref == 'refs/heads/production' && github.event_name == 'workflow_dispatch'
+    if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Trigger deploy hook
         env:
