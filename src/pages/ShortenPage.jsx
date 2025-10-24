@@ -5,7 +5,6 @@ import { Typography, Grid, Box, Alert, AlertTitle } from "@mui/material";
 import { ShortenForm, ShortenResult } from "#/components";
 import ShortenService from "#/services/shorten.service";
 import { loadingState } from "#/contants/recoilState";
-import appConfig from "#/configs/app.config";
 
 const ShortenPage = () => {
   const [originalUrl, setOriginalUrl] = useState("");
@@ -47,8 +46,6 @@ const ShortenPage = () => {
       console.error("failed to copy", err);
     }
   };
-
-  console.log("appconfig: ", appConfig.apiBaseUrl);
 
   return (
     <Grid container direction="column" spacing={8}>
