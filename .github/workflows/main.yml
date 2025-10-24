@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - production
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - main
+      - production
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build:prod
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Render
+    needs: build
+    if: github.ref == 'refs/heads/production' && github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Trigger deploy hook
+        env:
+          deploy_url: ${{secrets.RENDER_DEPLOY_HOOK_URL}}
+        run: |
+          curl "$deploy_url"
